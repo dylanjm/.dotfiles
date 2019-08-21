@@ -381,8 +381,8 @@ Displays HERE and TOTAL to indicate how many search results have been found."
 ;; `telephone-line': Powerline alternative.
 ;;------------------------------------------------------------------------------
 (use-package telephone-line
-  ;;:disabled
-  ensure nil
+  :disabled
+  :ensure nil
   :init
 
   (setq telephone-line-primary-left-separator 'telephone-line-cubed-left

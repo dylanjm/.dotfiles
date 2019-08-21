@@ -232,6 +232,7 @@ tramp
 # elpa packages
 elpa/
 eshell/
+.emacs-saves/
 
 # reftex files
 *.rel
@@ -530,4 +531,4 @@ TSWLatexianTemp*
 *.sta
 
 # Makeindex log files
-*.lpz
+.custom.el
