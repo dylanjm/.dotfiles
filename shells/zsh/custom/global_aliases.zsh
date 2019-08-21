@@ -4,6 +4,10 @@ alias emc='emacsclient -n -c'
 
 alias kemc="emacsclient -e '(kill-emacs)'"
 
+alias desk="cd $HOME/Desktop"
+
+alias doc="cd $HOME/Documents"
+
 alias dot="cd $DOTFILES"
 
 alias dotz="cd $DOTFILES/shells/zsh"

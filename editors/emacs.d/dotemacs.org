@@ -3,7 +3,9 @@
 
 * Emacs Dot Files
 
-** Setup Defaults
+** Bootstrap
+
+*** Defaults
 
 #+BEGIN_SRC emacs-lisp
 (setq-default
@@ -56,6 +58,15 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)         ; Smart Buffer Default
 #+END_SRC
 
+Store all backups and autosave files in `/tmp/`
+
+#+begin_src emacs-lisp
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+#+end_src
+
 Setting up Editor Configuration File
 
 #+begin_src emacs-lisp
@@ -71,7 +82,7 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 (add-hook 'focus-out-hook #'garbage-collect)
 #+END_SRC
 
-** Theme
+*** Theme
 
 #+BEGIN_SRC emacs-lisp
   (use-package gruvbox-theme 
@@ -80,14 +91,16 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
     (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
 
-** Load .custom.el
+*** Load .custom.el
+
 #+begin_src emacs-lisp
 (setq custom-file nil)
 (when (file-exists-p custom-file)
   (load custom-file))
 #+end_src
 
-** OS Specific
+*** OS Specific
+
 
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
@@ -95,9 +108,19 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
     :hook (after-init . exec-path-from-shell-initialize))
 #+end_src
 
+
 ** Language Specific
 
+*** Lisp
+
+    #+begin_src emacs-lisp
+        (use-package ielm
+          :ensure nil
+          :hook (ielm-mode . (lambda () (setq-local scroll-margin 0))))
+    #+end_src
+
 *** Markdown
+
     #+begin_src emacs-lisp
     (use-package markdown-mode
     :mode
@@ -123,10 +146,29 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
     ("\\.yml\\'" "\\.yaml\\'"))
 #+end_src
 
-*** Org
 
+** Features
 
+*** Auto-Complete
 
+    #+begin_src emacs-lisp
+      (use-package company
+        :bind
+        (:map company-active-map
+              ("RET" . nil)
+              ([return] . nil)
+              ("TAB" . company-complete-selection)
+              ([tab] . company-complete-selection)
+              ("<right>" . company-complete-common))
+        :hook
+        (after-init . global-company-mode)
+        :custom
+        (company-dabbrev-downcase nil)
+        (company-idle-delay .2)
+        (company-minimum-prefix-length 1)
+        (company-require-match nil)
+        (company-tooltip-align-annotations t))
+    #+end_src
 
 
 
