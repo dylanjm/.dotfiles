@@ -1,0 +1,3 @@
+- link:
+    ~/.bashrc: shells/bash/bashrc.workstation.sh
+    ~/.bash_profile: shells/bash/bash_profile.workstation.sh
