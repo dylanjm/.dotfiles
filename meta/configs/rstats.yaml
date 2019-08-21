@@ -1,0 +1,3 @@
+- link:
+    ~/.R/Makevars: apps/R/Makevars
+    ~/.Renviron: apps/R/Renviron
