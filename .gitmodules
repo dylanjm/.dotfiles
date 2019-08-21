@@ -10,3 +10,6 @@
 [submodule "shells/zsh/custom/plugins/zsh-autosuggestions"]
 	path = shells/zsh/custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "apps/iterm2/iTerm2-Color-Schemes"]
+	path = apps/iterm2/iTerm2-Color-Schemes
+	url = git@github.com:mbadolato/iTerm2-Color-Schemes.git
