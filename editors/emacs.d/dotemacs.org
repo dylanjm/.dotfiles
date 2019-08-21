@@ -103,7 +103,7 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
-    :if (memq window-system '(mac ns))
+    :if (memq window-system '(mac ns nil))
     :hook (after-init . exec-path-from-shell-initialize))
 #+end_src
 
@@ -145,29 +145,71 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
     ("\\.yml\\'" "\\.yaml\\'"))
 #+end_src
 
+*** LaTeX
+
+Found this LaTeX setup at: https://github.com/peterewills/my_configs/blob/master/.emacs
+
+#+begin_src emacs-lisp
+(use-package tex
+  :defer t
+  :ensure auctex
+  :init
+  ;;(server-start) ;; so skim can talk to emacs
+  ;; a bunch of default settings I want
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  (add-hook 'LaTeX-mode-hook 'company-mode)
+  (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode)); force LaTeX-mode
+  ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+  (add-hook 'LaTeX-mode-hook (lambda ()
+                               (push
+                                '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                  :help "Run latexmk on file")
+                                TeX-command-list)))
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+  :custom
+  (TeX-parse-self t)
+  (preview-auto-cache-preamble t)
+  (TeX-save-query nil) ;; autosave before compiling
+  (TeX-master nil)
+  (reftex-plug-into-AUCTeX t)
+  (TeX-PDF-mode t)
+  ;; use Skim as default pdf viewer
+  ;; Skim's displayline is used for forward search (from .tex to .pdf)
+  ;; option -b highlights the current line; option -g opens Skim in the background  
+  (TeX-view-program-selection '((output-pdf "PDF Viewer")))
+  (TeX-view-program-list
+        '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+  (preview-gs-command "/usr/local/bin/gs"))
+#+end_src
+
 
 ** Features
 
 *** Auto-Complete
 
-    #+begin_src emacs-lisp
-      (use-package company
-        :bind
-        (:map company-active-map
-              ("RET" . nil)
-              ([return] . nil)
-              ("TAB" . company-complete-selection)
-              ([tab] . company-complete-selection)
-              ("<right>" . company-complete-common))
-        :hook
-        (after-init . global-company-mode)
-        :custom
-        (company-dabbrev-downcase nil)
-        (company-idle-delay .2)
-        (company-minimum-prefix-length 1)
-        (company-require-match nil)
-        (company-tooltip-align-annotations t))
-    #+end_src
+This is auto complete stuff:
+
+#+begin_src emacs-lisp
+(use-package company
+  :bind
+  (:map company-active-map
+        ("RET" . nil)
+        ([return] . nil)
+        ("TAB" . company-complete-selection)
+        ([tab] . company-complete-selection)
+        ("<right>" . company-complete-common))
+  :hook
+  (after-init . global-company-mode)
+  :custom
+  (company-dabbrev-downcase nil)
+  (company-idle-delay .2)
+  (company-minimum-prefix-length 1)
+  (company-require-match nil)
+  (company-tooltip-align-annotations t))
+#+end_src
 
 
 

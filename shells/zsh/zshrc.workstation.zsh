@@ -11,26 +11,15 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git osx zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
-autoload -U compinit && compinit
 
 # sourcing scripts
-source $ZSH/oh-my-zsh.sh -d /tmp/zcomp
+source $ZSH/oh-my-zsh.sh
 
 # zsh-syntax-highlighting
 ZSH_HIGHLIGHT_STYLES[alias]=fg=magenta,bold
 ZSH_HIGHLIGHT_STYLES[builtin]=fg=white,bold
 ZSH_HIGHLIGHT_STYLES[function]=fg=blue,bold
 ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
-
-nuke() {
-    read -r -p "Are you sure? [y/N] " response
-    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-    then
-	git clean -dfx && git submodule foreach --recursive git clean -dfx
-    else
-	return 0
-    fi
-}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

@@ -2,7 +2,7 @@ alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 
 alias emc='emacsclient -n -c'
 
-alias kemc="emacsclient -e '(kill-emacs)'"
+alias kemc="emacsclient -e '(kill-emacs)'; echo Shutting Down Emacs Client"
 
 alias desk="cd $HOME/Desktop"
 

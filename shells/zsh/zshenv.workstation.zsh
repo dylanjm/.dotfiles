@@ -1,7 +1,9 @@
 #export MANPATH="/usr/local/man:$MANPATH"
+
 export DOTFILES="$HOME/.dotfiles"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$DOTFILES/shells/zsh/custom"
+export ZSH_COMPDUMP="$HOME"
 export PYENV_ROOT="$HOME/.pyenv"
 export EDITOR='emacsclient -c'
 export ALTERNATE_EDITOR=""
