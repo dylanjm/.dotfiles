@@ -28,3 +28,4 @@
 	
 [pager]
 	branch = false
+    stash = false
