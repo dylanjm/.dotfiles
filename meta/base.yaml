@@ -8,3 +8,6 @@
     - ["git submodule update --init --recursive", "Installing submodules"]
 
 - clean: ['~']
+
+- link:
+    ~/.iterm2_shell_integration.zsh: apps/iterm2/iterm2_shell_integration.zsh

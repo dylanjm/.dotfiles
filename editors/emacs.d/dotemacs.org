@@ -8,84 +8,83 @@
 *** Defaults
 
 #+BEGIN_SRC emacs-lisp
-(setq-default
- ad-redefinition-action 'accept                   ; Silence warnings for redefinition
- auto-window-vscroll nil                          ; Lighten vertical scroll
- cursor-in-non-selected-windows nil               ; Hide the cursor in inactive windows
- delete-by-moving-to-trash t                      ; Delete files to trash
- display-time-default-load-average nil            ; Don't display load average
- display-time-format "%H:%M"                      ; Format the time string
- fill-column 84                                   ; Set width for automatic line breaks
- help-window-select t                             ; Focus new help windows when opened
- indent-tabs-mode nil                             ; Stop using tabs to indent
- inhibit-startup-screen t                         ; Disable start-up screen
- initial-scratch-message ""                       ; Empty the initial *scratch* buffer
- mouse-yank-at-point t                            ; Yank at point rather than pointer
- ns-use-srgb-colorspace nil                       ; Don't use sRGB colors
- recenter-positions '(5 top bottom)               ; Set re-centering positions
- scroll-conservatively most-positive-fixnum       ; Always scroll by one line
- scroll-margin 10                                 ; Add a margin when scrolling vertically
- select-enable-clipboard t                        ; Merge system's and Emacs' clipboard
- sentence-end-double-space nil                    ; End a sentence after a dot and a space
- show-trailing-whitespace nil                     ; Display trailing whitespaces
- split-height-threshold nil                       ; Disable vertical window splitting
- split-width-threshold nil                        ; Disable horizontal window splitting
- tab-width 4                                      ; Set width for tabs
- uniquify-buffer-name-style 'forward              ; Uniquify buffer names
- window-combination-resize t                      ; Resize windows proportionally
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
-(delete-selection-mode 1)                         ; Replace region when inserting text
-(display-time-mode 1)                             ; Enable time in the mode-line
-(global-display-line-numbers-mode)                ; Always show line numbers
-(fringe-mode 0)                                   ; Disable fringes
-(fset 'yes-or-no-p 'y-or-n-p)                     ; Replace yes/no prompts with y/n
-(global-subword-mode 1)                           ; Iterate through CamelCase words
-(menu-bar-mode 0)                                 ; Disable the menu bar
-(mouse-avoidance-mode 'banish)                    ; Avoid collision of mouse with point
-(put 'downcase-region 'disabled nil)              ; Enable downcase-region
-(put 'upcase-region 'disabled nil)                ; Enable upcase-region
-(set-default-coding-systems 'utf-8)               ; Default to utf-8 encoding
-(add-to-list 'default-frame-alist
-             '(ns-transparent-titlebar . t))      ; Make the titlebar transparent
-(add-to-list 'default-frame-alist
-             '(ns-appearance . dark))             ; Make everything dark
-(scroll-bar-mode 0)                               ; Disable the scroll bar
-(blink-cursor-mode 0)                             ; Disable the cursor blinking
-(scroll-bar-mode 0)                               ; Disable the scroll bar
-(tool-bar-mode 0)                                 ; Disable the tool bar
-(tooltip-mode 0)                                  ; Disable the tooltips
-(global-set-key (kbd "C-x C-b") 'ibuffer)         ; Smart Buffer Default
+  (setq-default
+   ad-redefinition-action 'accept                   ; Silence warnings for redefinition
+   auto-window-vscroll nil                          ; Lighten vertical scroll
+   cursor-in-non-selected-windows nil               ; Hide the cursor in inactive windows
+   delete-by-moving-to-trash t                      ; Delete files to trash
+   display-time-default-load-average nil            ; Don't display load average
+   display-time-format "%H:%M"                      ; Format the time string
+   fill-column 84                                   ; Set width for automatic line breaks
+   help-window-select t                             ; Focus new help windows when opened
+   indent-tabs-mode nil                             ; Stop using tabs to indent
+   inhibit-startup-screen t                         ; Disable start-up screen
+   initial-scratch-message ""                       ; Empty the initial *scratch* buffer
+   mouse-yank-at-point t                            ; Yank at point rather than pointer
+   ns-use-srgb-colorspace nil                       ; Don't use sRGB colors
+   recenter-positions '(5 top bottom)               ; Set re-centering positions
+   scroll-conservatively most-positive-fixnum       ; Always scroll by one line
+   scroll-margin 10                                 ; Add a margin when scrolling vertically
+   select-enable-clipboard t                        ; Merge system's and Emacs' clipboard
+   sentence-end-double-space nil                    ; End a sentence after a dot and a space
+   show-trailing-whitespace nil                     ; Display trailing whitespaces
+   split-height-threshold nil                       ; Disable vertical window splitting
+   split-width-threshold nil                        ; Disable horizontal window splitting
+   tab-width 4                                      ; Set width for tabs
+   uniquify-buffer-name-style 'forward              ; Uniquify buffer names
+   window-combination-resize t                      ; Resize windows proportionally
+   x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+  (delete-selection-mode 1)                         ; Replace region when inserting text
+  (display-time-mode 1)                             ; Enable time in the mode-line
+  (global-display-line-numbers-mode)                ; Always show line numbers
+  (fringe-mode 0)                                   ; Disable fringes
+  (fset 'yes-or-no-p 'y-or-n-p)                     ; Replace yes/no prompts with y/n
+  (global-subword-mode 1)                           ; Iterate through CamelCase words
+  (menu-bar-mode 0)                                 ; Disable the menu bar
+  (put 'downcase-region 'disabled nil)              ; Enable downcase-region
+  (put 'upcase-region 'disabled nil)                ; Enable upcase-region
+  (set-default-coding-systems 'utf-8)               ; Default to utf-8 encoding
+  (add-to-list 'default-frame-alist
+               '(ns-transparent-titlebar . t))      ; Make the titlebar transparent
+  (add-to-list 'default-frame-alist
+               '(ns-appearance . dark))             ; Make everything dark
+  (scroll-bar-mode 0)                               ; Disable the scroll bar
+  (blink-cursor-mode 0)                             ; Disable the cursor blinking
+  (scroll-bar-mode 0)                               ; Disable the scroll bar
+  (tool-bar-mode 0)                                 ; Disable the tool bar
+  (tooltip-mode 0)                                  ; Disable the tooltips
+  (global-set-key (kbd "C-x C-b") 'ibuffer)         ; Smart Buffer Default
 #+END_SRC
 
 Store all backups and autosave files in `/tmp/`
 
 #+begin_src emacs-lisp
-(setq backup-directory-alist
-      `((".*" . , (expand-file-name ".emacs-saves" user-emacs-directory))))
-(setq auto-save-file-name-transforms
-      `((".*" , (expand-file-name ".emacs-saves" user-emacs-directory) t)))
+  (setq backup-directory-alist
+        `((".*" . , (expand-file-name ".emacs-saves" user-emacs-directory))))
+  (setq auto-save-file-name-transforms
+        `((".*" , (expand-file-name ".emacs-saves" user-emacs-directory) t)))
 #+end_src
 
 Setting up Editor Configuration File
 
 #+begin_src emacs-lisp
-(use-package editorconfig
-  :ensure t
-  :config
-  (editorconfig-mode 1))
+  (use-package editorconfig
+    :ensure t
+    :config
+    (editorconfig-mode 1))
 #+end_src
 
 Garbage-collect on focus-out, Emacs /should/ feel snappier.
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'focus-out-hook #'garbage-collect)
+  (add-hook 'focus-out-hook #'garbage-collect)
 #+END_SRC
 
 *** Theme
 
 #+BEGIN_SRC emacs-lisp
-(use-package gruvbox-theme 
-:demand t
+  (use-package gruvbox-theme 
+    :demand t
     :config 
     (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
@@ -94,45 +93,45 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
   (use-package rainbow-delimiters
     :ensure t
     :config
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    (add-hook 'python-mode-hook 'rainbow-delimiters-mode))
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package general)
-(use-package diminish :defer t)
-(use-package color-identifiers-mode :defer t)
+  (use-package general)
+  (use-package diminish :defer t)
+  (use-package color-identifiers-mode :defer t)
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package smartparens
-  :diminish smartparens-mode  
-  :commands smartparens-mode
-  :init
-  (add-hook 'python-mode-hook 'smartparens-mode)
-  (add-hook 'lisp-interaction-mode-hook 'smartparens-mode)
-  (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
-  (add-hook 'LaTeX-mode-hook 'smartparens-mode)
-  (add-hook 'org-mode-hook 'smartparens-mode)
-  :config
-  (sp-local-pair 'org-mode "_" "_" )
-  (sp-local-pair 'org-mode "*" "*" )
-  (sp-local-pair 'latex-mode "$" "$")
-  (sp-local-pair 'latex-mode "\\left(" "\\right)" :trigger "\\l(")
-  ;; highligh matching brackets
-  (show-smartparens-global-mode 0)
-  ;; so that paren highlights do not override region marking (aka selecting)
-  (setq show-paren-priority -1) 
-  (setq show-paren-when-point-inside-paren t)
-  (setq sp-show-pair-from-inside t)
-  (setq show-paren-style 'mixed)) 
+  (use-package smartparens
+    :diminish smartparens-mode  
+    :commands smartparens-mode
+    :init
+    (add-hook 'python-mode-hook 'smartparens-mode)
+    (add-hook 'lisp-interaction-mode-hook 'smartparens-mode)
+    (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+    (add-hook 'LaTeX-mode-hook 'smartparens-mode)
+    (add-hook 'org-mode-hook 'smartparens-mode)
+    :config
+    (sp-local-pair 'org-mode "_" "_" )
+    (sp-local-pair 'org-mode "*" "*" )
+    (sp-local-pair 'latex-mode "$" "$")
+    (sp-local-pair 'latex-mode "\\left(" "\\right)" :trigger "\\l(")
+    ;; highligh matching brackets
+    (show-smartparens-global-mode 0)
+    ;; so that paren highlights do not override region marking (aka selecting)
+    (setq show-paren-priority -1) 
+    (setq show-paren-when-point-inside-paren t)
+    (setq sp-show-pair-from-inside t)
+    (setq show-paren-style 'mixed)) 
 #+end_src
 
 *** Load .custom.el
 
 #+begin_src emacs-lisp
-(setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
+  (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file)
+    (load custom-file))
 #+end_src
 
 *** OS Specific
@@ -149,30 +148,30 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 
 *** Lisp
 
-    #+begin_src emacs-lisp
-        (use-package ielm
-          :ensure nil
-          :hook (ielm-mode . (lambda () (setq-local scroll-margin 0))))
-    #+end_src
+#+begin_src emacs-lisp
+  (use-package ielm
+    :ensure nil
+    :hook (ielm-mode . (lambda () (setq-local scroll-margin 0))))
+#+end_src
 
 *** Markdown
 
-    #+begin_src emacs-lisp
-    (use-package markdown-mode
+#+begin_src emacs-lisp
+  (use-package markdown-mode
     :mode
     ("INSTALL\\'"
-    "CONTRIBUTORS\\'"
-    "LICENSE\\'"
-    "README\\'"
-    "\\.markdown\\'"
-    "\\.md\\'")
+     "CONTRIBUTORS\\'"
+     "LICENSE\\'"
+     "README\\'"
+     "\\.markdown\\'"
+     "\\.md\\'")
     :custom
     (markdown-asymmetric-header t)
     (markdown-split-window-direction 'right)
     :config
     (unbind-key "M-<down>" markdown-mode-map)
     (unbind-key "M-<up>" markdown-mode-map))
-    #+end_src
+#+end_src
 
 *** YAML
 
