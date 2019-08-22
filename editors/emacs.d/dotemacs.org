@@ -84,11 +84,48 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 *** Theme
 
 #+BEGIN_SRC emacs-lisp
-  (use-package gruvbox-theme 
-    :demand t
+(use-package gruvbox-theme 
+:demand t
     :config 
     (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
+
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package general)
+(use-package diminish :defer t)
+(use-package color-identifiers-mode :defer t)
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package smartparens
+  :diminish smartparens-mode  
+  :commands smartparens-mode
+  :init
+  (add-hook 'python-mode-hook 'smartparens-mode)
+  (add-hook 'lisp-interaction-mode-hook 'smartparens-mode)
+  (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+  (add-hook 'LaTeX-mode-hook 'smartparens-mode)
+  (add-hook 'org-mode-hook 'smartparens-mode)
+  :config
+  (sp-local-pair 'org-mode "_" "_" )
+  (sp-local-pair 'org-mode "*" "*" )
+  (sp-local-pair 'latex-mode "$" "$")
+  (sp-local-pair 'latex-mode "\\left(" "\\right)" :trigger "\\l(")
+  ;; highligh matching brackets
+  (show-smartparens-global-mode 0)
+  ;; so that paren highlights do not override region marking (aka selecting)
+  (setq show-paren-priority -1) 
+  (setq show-paren-when-point-inside-paren t)
+  (setq sp-show-pair-from-inside t)
+  (setq show-paren-style 'mixed)) 
+#+end_src
 
 *** Load .custom.el
 
@@ -150,39 +187,55 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 Found this LaTeX setup at: https://github.com/peterewills/my_configs/blob/master/.emacs
 
 #+begin_src emacs-lisp
-(use-package tex
-  :defer t
-  :ensure auctex
-  :init
-  ;;(server-start) ;; so skim can talk to emacs
-  ;; a bunch of default settings I want
-  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-  (add-hook 'LaTeX-mode-hook 'company-mode)
-  (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode)); force LaTeX-mode
-  ;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
-  (add-hook 'LaTeX-mode-hook (lambda ()
-                               (push
-                                '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-                                  :help "Run latexmk on file")
-                                TeX-command-list)))
-  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
-  :custom
-  (TeX-parse-self t)
-  (preview-auto-cache-preamble t)
-  (TeX-save-query nil) ;; autosave before compiling
-  (TeX-master nil)
-  (reftex-plug-into-AUCTeX t)
-  (TeX-PDF-mode t)
-  ;; use Skim as default pdf viewer
-  ;; Skim's displayline is used for forward search (from .tex to .pdf)
-  ;; option -b highlights the current line; option -g opens Skim in the background  
-  (TeX-view-program-selection '((output-pdf "PDF Viewer")))
-  (TeX-view-program-list
-        '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
-  (preview-gs-command "/usr/local/bin/gs"))
+  (use-package latex-extra
+    :defer t
+    :config
+    (add-hook 'LaTeX-mode-hook #'latex-extra-mode))
+
+  (use-package company-auctex
+    :defer t
+    :config
+    (add-hook 'LaTeX-mode-hook 'company-auctex-init))
+
+  (use-package reftex
+    :ensure t
+    :defer t
+    :config
+    (setq reftex-cite-prompt-optional-args t)
+    (add-hook LaTeX-mode-hook 'turn-on-reftex))
+
+  (use-package tex
+    :defer t
+    :ensure auctex
+    :config
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq preview-auto-cache-preamble t)
+    (setq TeX-electric-escape t)
+    (setq TeX-PDF-mode t)
+    (add-hook 'LaTeX-mode-hook 'smartparens-mode)
+    (setq auto-mode-alist (cons '("\\.latex$" . LaTeX-mode) auto-mode-alist))
+    (add-hook 'LaTeX-mode-hook (lambda ()
+                                 (push
+                                  '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                    :help "Run latexmk on file")
+                                  TeX-command-list)))
+    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+    (add-hook 'LaTeX-mode-hook
+              (lambda ()
+                (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)))
+    :custom
+    (reftex-plug-into-AUCTeX t)
+
+    ;; use Skim as default pdf viewer
+    ;; Skim's displayline is used for forward search (from .tex to .pdf)
+    ;; option -b highlights the current line; option -g opens Skim in the background  
+    (TeX-view-program-selection '((output-pdf "PDF Viewer")))
+    (TeX-view-program-list
+          '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+    (preview-gs-command "/usr/local/bin/gs"))
+
 #+end_src
 
 

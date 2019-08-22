@@ -1,8 +1,8 @@
 (let ((gc-cons-threshold most-positive-fixnum))
 
   (defconst user-emacs-modules-directory
-  (expand-file-name (concat user-emacs-directory "lisp/"))
-  "Directory for storing modules.")
+    (expand-file-name (concat user-emacs-directory "lisp/"))
+    "Directory for storing modules.")
 
   ;; Set repositories
   (require 'package)
@@ -18,6 +18,7 @@
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package t))
+  (require 'use-package)
   (setq-default
    use-package-always-defer t
    use-package-always-ensure t
