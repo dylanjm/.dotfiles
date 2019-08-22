@@ -13,3 +13,6 @@
 [submodule "apps/iterm2/iTerm2-Color-Schemes"]
 	path = apps/iterm2/iTerm2-Color-Schemes
 	url = git@github.com:mbadolato/iTerm2-Color-Schemes.git
+[submodule "shells/zsh/custom/themes/powerlevel10k"]
+	path = shells/zsh/custom/themes/powerlevel10k
+	url = git@github.com:romkatv/powerlevel10k.git
