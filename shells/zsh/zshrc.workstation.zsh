@@ -14,6 +14,8 @@ plugins=(git osx zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 
 # sourcing scripts
 source $ZSH/oh-my-zsh.sh
+source /usr/local/opt/modules/init/zsh
+source /usr/local/opt/moose/moose_profile.sh 
 
 # zsh-syntax-highlighting
 ZSH_HIGHLIGHT_STYLES[alias]=fg=magenta,bold

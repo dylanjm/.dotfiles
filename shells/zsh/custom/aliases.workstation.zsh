@@ -1,8 +1,4 @@
 # --- ALIASES --------------------------
-alias lx='exa -lah --icons --git --group-directories-first'
-
-alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
-
 # Work Folders
 alias projects='cd ~/Documents/projects'
 alias bison='cd ~/Documents/projects/bison'
