@@ -25,3 +25,6 @@ ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

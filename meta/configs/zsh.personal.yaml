@@ -3,4 +3,3 @@
     ~/.zshenv: shells/zsh/zshenv.personal.zsh
     ~/.zprofile: shells/zsh/zprofile.personal.zsh
     ~/.p10k.zsh: shells/zsh/p10k.personal.zsh
-    ~/.dotfiles/shells/zsh/custom/aliases.zsh: shells/zsh/aliases.personal.zsh
