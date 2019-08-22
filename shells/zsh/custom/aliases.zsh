@@ -1,1 +1,1 @@
-/Users/mcdodj/.dotfiles/shells/zsh/aliases.workstation.zsh
+/Users/djm/.dotfiles/shells/zsh/aliases.personal.zsh

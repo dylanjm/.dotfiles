@@ -1,5 +1,5 @@
 #export MANPATH="/usr/local/man:$MANPATH"
-export DOTFILES="$HOME/dotfiles"
+export DOTFILES="$HOME/.dotfiles"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$DOTFILES/shells/zsh/custom"
 export PYENV_ROOT="$HOME/.pyenv"
