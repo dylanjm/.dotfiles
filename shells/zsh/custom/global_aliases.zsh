@@ -4,13 +4,13 @@ alias emc='emacsclient -n -c'
 
 alias kemc="emacsclient -e '(kill-emacs)'; countdown"
 
-alias lx='exa -lah --icons --group-directories-first'
+alias lx='exa -lahH --color-scale --icons --sort=changed --time=changed --time-style long-iso -r'
 
 alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
 
 alias desk="cd $HOME/Desktop"
 
-alias doc="cd $HOME/Documents"
+alias docs="cd $HOME/Documents"
 
 alias dot="cd $DOTFILES"
 

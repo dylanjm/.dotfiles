@@ -11,7 +11,7 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git osx zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
-autoload -U compinit && compinit
+#autoload -U compinit && compinit
 
 # sourcing scripts
 source $ZSH/oh-my-zsh.sh
@@ -26,3 +26,16 @@ ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 toilet -f pagga --filter border:gay 'Welcome McDeezy'
+
+# use gnu dircolors
+if [ -x `whence -p gdircolors` ]; then 
+    eval `gdircolors --sh ~/.gruvbox.dircolors`;
+fi
+
+
+# enable ls colors for zsh completion
+if [ -x `whence -p gls` ]; then 
+    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}";
+fi
+
+

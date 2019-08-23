@@ -3,3 +3,4 @@
     ~/.zshenv: shells/zsh/zshenv.personal.zsh
     ~/.zprofile: shells/zsh/zprofile.personal.zsh
     ~/.p10k.zsh: shells/zsh/p10k.personal.zsh
+    ~/.gruvbox.dircolors: shells/zsh/gruvbox.dircolors

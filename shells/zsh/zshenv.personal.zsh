@@ -1,4 +1,7 @@
 #export MANPATH="/usr/local/man:$MANPATH"
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
 export DOTFILES="$HOME/.dotfiles"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$DOTFILES/shells/zsh/custom"
