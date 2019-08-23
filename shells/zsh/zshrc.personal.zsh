@@ -27,11 +27,12 @@ ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
 
 toilet -f pagga --filter border:gay 'Welcome McDeezy'
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # use gnu dircolors
 if [ -x `whence -p gdircolors` ]; then 
     eval `gdircolors --sh ~/.gruvbox.dircolors`;
 fi
-
 
 # enable ls colors for zsh completion
 if [ -x `whence -p gls` ]; then 

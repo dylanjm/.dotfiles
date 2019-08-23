@@ -26,7 +26,17 @@ ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# use gnu dircolors
+if [ -x `whence -p gdircolors` ]; then 
+    eval `gdircolors --sh ~/.gruvbox.dircolors`;
+fi
+
+
+# enable ls colors for zsh completion
+if [ -x `whence -p gls` ]; then 
+    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}";
+fi
+
 
