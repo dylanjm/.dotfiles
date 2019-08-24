@@ -1,5 +1,6 @@
 - link:
     ~/.zshrc: shells/zsh/zshrc.workstation.zsh
     ~/.zshenv: shells/zsh/zshenv.workstation.zsh
+    ~/.zprofile: shells/zsh/zprofile.zsh
     ~/.p10k.zsh: shells/zsh/p10k.zsh
     ~/.gruvbox.dircolors: shells/zsh/gruvbox.dircolors
