@@ -6,9 +6,6 @@
 
 - clean: ['~']
 
-- brewfile:
-    file: Brewfile
-
 - link:
     ~/.iterm2_shell_integration.zsh: apps/iterm2/iterm2_shell_integration.zsh
     ~/.latexmkrc: misc/latexmkrc
