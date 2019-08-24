@@ -19,3 +19,5 @@ alias dotz="cd $DOTFILES/shells/zsh"
 alias zcus="cd $ZSH_CUSTOM"
 
 alias dotem="cd $DOTFILES/editors/emacs.d"
+
+alias r="radian"

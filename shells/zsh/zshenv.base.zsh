@@ -12,11 +12,11 @@ export LANG=en_US.UTF-8
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.pyenv/bin:$DOTFILES/bin:/Library/TeX/texbin"
 
-#if command -v pyenv 1>/dev/null 2>&1; then
-#  eval "$(pyenv init -)"
-#fi
-#
-#if which pyenv-virtualenv-init > /dev/null; then
-#    eval "$(pyenv virtualenv-init -)"
-#fi
-#
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+if which pyenv-virtualenv-init > /dev/null; then
+    eval "$(pyenv virtualenv-init -)"
+fi
+
