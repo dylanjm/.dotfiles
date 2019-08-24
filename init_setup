@@ -1,0 +1,65 @@
+#!/bin/sh
+
+sudo -v
+
+# Check for xcode-CLT
+if [ "$(xcode-select -p 2>/dev/null; echo $?)" = "2" ]; then
+  echo "Installing Xcode Command Line Tools for you."
+  touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+  PROD=$(softwareupdate -l |
+      grep "\*.*Command Line" |
+      head -n 1 | awk -F"*" '{print $2}' |
+      sed -e 's/^ *//' |
+      tr -d '\n')
+  softwareupdate -i "$PROD" --verbose
+  rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+fi
+
+set -e
+
+# Check for Homebrew
+if test ! $(which brew); then
+  echo "Installing Homebrew for you."
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+if test ! -e /etc/zshenv; then
+   echo "Creating file /etc/zshenv"
+   sudo touch /etc/zshenv
+   echo 'adding "DOTFILES=/Users/$USER/.dotfiles" to /etc/zshenv'
+   echo 'export DOTFILES="Users/$USER/.dotfiles"' | sudo tee -a /etc/zshenv
+fi
+
+if test ! -e /usr/local/bin/zsh; then
+   echo "Installing latest version of ZSH from homebrew"
+   brew install zsh
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+   echo "Installing Oh My ZShell!"
+   curl -Lo install.sh https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+   sh install.sh --unattended
+   trash=/tmp
+   mv install.sh $trash
+fi
+
+if ! grep -Fxq "/usr/local/bin/zsh" /etc/shells; then
+    echo "Adding /usr/local/bin/zsh to /etc/shells file"
+    echo '/usr/local/bin/zsh' | sudo tee -a /etc/shells
+fi
+
+if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
+    chsh -s /usr/local/bin/zsh
+    echo "ZSH is now your default shell. Please restart your terminal once this script has finished"
+fi
+
+cd "$(dirname "$0")"
+
+read -r -p "Would you like to install the packages/apps contained in Brewfile? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+    brew bundle
+else
+    exit 1
+fi
+
+
