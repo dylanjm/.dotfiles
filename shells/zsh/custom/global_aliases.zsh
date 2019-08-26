@@ -12,6 +12,8 @@ alias desk="cd $HOME/Desktop"
 
 alias docs="cd $HOME/Documents"
 
+alias downloads="cd $HOME/Downloads"
+
 alias dot="cd $DOTFILES"
 
 alias dotz="cd $DOTFILES/shells/zsh"
@@ -21,3 +23,9 @@ alias zcus="cd $ZSH_CUSTOM"
 alias dotem="cd $DOTFILES/editors/emacs.d"
 
 alias r="radian"
+
+alias isye='cd ~/Documents/College/OMSCS/isye_6420'
+
+alias gitcode='cd ~/Documents/Code/Github'
+
+alias em='emacsclient -t'

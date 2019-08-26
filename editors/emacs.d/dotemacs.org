@@ -9,13 +9,14 @@
 
 #+BEGIN_SRC emacs-lisp
   (setq-default
+   visible-bell t                                   ; Flashes on error
    ad-redefinition-action 'accept                   ; Silence warnings for redefinition
    auto-window-vscroll nil                          ; Lighten vertical scroll
    cursor-in-non-selected-windows nil               ; Hide the cursor in inactive windows
    delete-by-moving-to-trash t                      ; Delete files to trash
    display-time-default-load-average nil            ; Don't display load average
    display-time-format "%H:%M"                      ; Format the time string
-   fill-column 84                                   ; Set width for automatic line breaks
+   fill-column 80                                   ; Set width for automatic line breaks
    help-window-select t                             ; Focus new help windows when opened
    indent-tabs-mode nil                             ; Stop using tabs to indent
    inhibit-startup-screen t                         ; Disable start-up screen
@@ -54,15 +55,16 @@
   (tool-bar-mode 0)                                 ; Disable the tool bar
   (tooltip-mode 0)                                  ; Disable the tooltips
   (global-set-key (kbd "C-x C-b") 'ibuffer)         ; Smart Buffer Default
+  (global-hl-line-mode 1)
 #+END_SRC
 
 Store all backups and autosave files in `/tmp/`
 
 #+begin_src emacs-lisp
   (setq backup-directory-alist
-        `((".*" . , (expand-file-name ".emacs-saves" user-emacs-directory))))
+        `((".*" . , (expand-file-name ".emacs-saves/" user-emacs-directory))))
   (setq auto-save-file-name-transforms
-        `((".*" , (expand-file-name ".emacs-saves" user-emacs-directory) t)))
+        `((".*" , (expand-file-name ".emacs-saves/" user-emacs-directory) t)))
 #+end_src
 
 Setting up Editor Configuration File
@@ -89,43 +91,6 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
     (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
 
-#+begin_src emacs-lisp
-  (use-package rainbow-delimiters
-    :ensure t
-    :config
-    (add-hook 'python-mode-hook 'rainbow-delimiters-mode))
-#+end_src
-
-#+begin_src emacs-lisp
-  (use-package general)
-  (use-package diminish :defer t)
-  (use-package color-identifiers-mode :defer t)
-#+end_src
-
-#+begin_src emacs-lisp
-  (use-package smartparens
-    :diminish smartparens-mode  
-    :commands smartparens-mode
-    :init
-    (add-hook 'python-mode-hook 'smartparens-mode)
-    (add-hook 'lisp-interaction-mode-hook 'smartparens-mode)
-    (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
-    (add-hook 'LaTeX-mode-hook 'smartparens-mode)
-    (add-hook 'org-mode-hook 'smartparens-mode)
-    :config
-    (sp-local-pair 'org-mode "_" "_" )
-    (sp-local-pair 'org-mode "*" "*" )
-    (sp-local-pair 'latex-mode "$" "$")
-    (sp-local-pair 'latex-mode "\\left(" "\\right)" :trigger "\\l(")
-    ;; highligh matching brackets
-    (show-smartparens-global-mode 0)
-    ;; so that paren highlights do not override region marking (aka selecting)
-    (setq show-paren-priority -1) 
-    (setq show-paren-when-point-inside-paren t)
-    (setq sp-show-pair-from-inside t)
-    (setq show-paren-style 'mixed)) 
-#+end_src
-
 *** Load .custom.el
 
 #+begin_src emacs-lisp
@@ -135,7 +100,6 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 #+end_src
 
 *** OS Specific
-
 
 #+begin_src emacs-lisp
   (use-package exec-path-from-shell
@@ -186,55 +150,39 @@ Garbage-collect on focus-out, Emacs /should/ feel snappier.
 Found this LaTeX setup at: https://github.com/peterewills/my_configs/blob/master/.emacs
 
 #+begin_src emacs-lisp
-  (use-package latex-extra
-    :defer t
+  (use-package tex-site
+    :ensure auctex
+    :mode ("\\.tex\\'" . LaTeX-mode)
     :config
-    (add-hook 'LaTeX-mode-hook #'latex-extra-mode))
-
-  (use-package company-auctex
-    :defer t
-    :config
-    (add-hook 'LaTeX-mode-hook 'company-auctex-init))
+    (setq TeX-auto-save t)
+    (setq TeX-save-query nil)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master t)
+    (setq-default TeX-PDF-mode t)
+    (add-hook 'LaTeX-mode-hook
+              (lambda ()
+                (auto-fill-mode)
+                (flyspell-mode)
+                (TeX-fold-mode 1)
+                (LaTeX-math-mode)
+                (turn-on-reftex)
+                (setq reftex-plug-into-AUCTeX t)
+                (push '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                        :help "Run latexmk on file")
+                      TeX-command-list)
+                (setq TeX-command-default "latexmk")))
+    :custom
+    (preview-auto-cache-preamble t)
+    (TeX-view-program-selection '((output-pdf "PDF Viewer")))
+    (TeX-view-program-list
+     '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+    (preview-gs-command "/usr/local/bin/gs"))
 
   (use-package reftex
     :ensure t
     :defer t
     :config
-    (setq reftex-cite-prompt-optional-args t)
-    (add-hook LaTeX-mode-hook 'turn-on-reftex))
-
-  (use-package tex
-    :defer t
-    :ensure auctex
-    :config
-    (setq TeX-auto-save t)
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil)
-    (setq preview-auto-cache-preamble t)
-    (setq TeX-electric-escape t)
-    (setq TeX-PDF-mode t)
-    (add-hook 'LaTeX-mode-hook 'smartparens-mode)
-    (setq auto-mode-alist (cons '("\\.latex$" . LaTeX-mode) auto-mode-alist))
-    (add-hook 'LaTeX-mode-hook (lambda ()
-                                 (push
-                                  '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-                                    :help "Run latexmk on file")
-                                  TeX-command-list)))
-    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
-    (add-hook 'LaTeX-mode-hook
-              (lambda ()
-                (local-set-key (kbd "<S-s-mouse-1>") #'TeX-view)))
-    :custom
-    (reftex-plug-into-AUCTeX t)
-
-    ;; use Skim as default pdf viewer
-    ;; Skim's displayline is used for forward search (from .tex to .pdf)
-    ;; option -b highlights the current line; option -g opens Skim in the background  
-    (TeX-view-program-selection '((output-pdf "PDF Viewer")))
-    (TeX-view-program-list
-          '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
-    (preview-gs-command "/usr/local/bin/gs"))
-
+    (setq reftex-cite-prompt-optional-args t))
 #+end_src
 
 
@@ -263,6 +211,29 @@ This is auto complete stuff:
   (company-tooltip-align-annotations t))
 #+end_src
 
+*** YASnippets
+
+
+#+begin_src emacs-lisp
+(use-package diminish)
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (use-package yasnippet-snippets
+    :ensure t)
+  (yas-global-mode t)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "C-'") #'yas-expand)
+  (add-to-list #'yas-snippet-dirs "~/.emacs.d/snippets/")
+  (yas-reload-all)
+  (setq yas-prompt-functions '(yas-ido-prompt))
+  (defun help/yas-after-exit-snippet-hook-fn ()
+    (prettify-symbols-mode)
+    (prettify-symbols-mode))
+  (add-hook 'yas-after-exit-snippet-hook #'help/yas-after-exit-snippet-hook-fn)
+  :diminish yas-minor-mode)
+#+end_src
 
 
 
@@ -271,3 +242,25 @@ This is auto complete stuff:
 
 
 
+*** Helm
+
+#+begin_src emacs-lisp
+(use-package helm
+  :ensure t
+  :bind (("M-a" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x f" . helm-recentf)
+         ("C-SPC" . helm-dabbrev)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x b" . helm-buffers-list))
+  :bind (:map helm-map
+	      ("M-i" . helm-previous-line)
+	      ("M-k" . helm-next-line)
+	      ("M-I" . helm-previous-page)
+	      ("M-K" . helm-next-page)
+	      ("M-h" . helm-beginning-of-buffer)
+	      ("M-H" . helm-end-of-buffer))
+  :config (progn
+	    (setq helm-buffers-fuzzy-matching t)
+            (helm-mode 1)))
+#+end_src
