@@ -1,6 +1,6 @@
 - link:
     ~/.zshrc: shells/zsh/zshrc.personal.zsh
-    ~/.zshenv: shells/zsh/zshenv.personal.zsh
+    ~/.zshenv: shells/zsh/zshenv.base.zsh
     ~/.zprofile: shells/zsh/zprofile.zsh
     ~/.p10k.zsh: shells/zsh/p10k.zsh
     ~/.gruvbox.dircolors: shells/zsh/gruvbox.dircolors

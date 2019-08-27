@@ -2447,6 +2447,8 @@
 	<string>~/Desktop</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{1188, 516}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{712, 468}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -2492,7 +2494,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>6296 946 918 514 3840 0 3840 2138 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>3840 1634 3840 504 3840 0 3840 2138 </string>
+	<string>3843 0 1913 2138 3840 0 3840 2138 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>6003 1623 1050 502 3840 0 3840 2138 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -3328,7 +3330,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>0</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3376,7 +3378,7 @@
 			<key>Unicode Normalization</key>
 			<integer>0</integer>
 			<key>Unlimited Scrollback</key>
-			<false/>
+			<true/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
@@ -5124,7 +5126,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>0</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -5174,7 +5176,7 @@
 			<key>Unicode Version</key>
 			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
-			<false/>
+			<true/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
@@ -6143,7 +6145,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>DAA52C4E-47BF-4DE1-BE36-3FA190AD4D75</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>70</integer>
+	<integer>99</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -6844,6 +6846,11 @@
 			</dict>
 		</array>
 	</dict>
+	<key>NoSyncSavePanelSavedSettings_SaveContents</key>
+	<dict>
+		<key>Initial Directory</key>
+		<string>/Users/mcdodj/Desktop</string>
+	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>570405351.57236004</real>
 	<key>PointerActions</key>
@@ -6892,7 +6899,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-08-23T16:32:43Z</date>
+	<date>2019-08-26T16:40:52Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -6901,6 +6908,8 @@
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.10000000000000001</real>
+	<key>StartDebugLoggingAutomatically</key>
+	<true/>
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
 	<key>TabStyleWithAutomaticOption</key>
